@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,14 +15,21 @@ import java.util.List;
 public class ProductService {
 
     // dummy list
-    List<Product> products = Arrays.asList(
-            new Product(101, "T-Shirt", 549.99),
-            new Product(102, "Trouser", 789.99),
-            new Product(103, "Pants", 999.99),
-            new Product(104, "Coat", 4999.99));
-
+    // make it mutable
+    List <Product> products = new ArrayList<>(
+            Arrays.asList(
+                    new Product(101, "T-Shirt", 549.99),
+                    new Product(102, "Trouser", 789.99),
+                    new Product(103, "Pants", 999.99),
+                    new Product(104, "Coat", 4999.99)
+            )
+    );
 
     public Product getProductById(int id) {
         return products.stream().filter(product -> product.getId() == id).findFirst().orElse(null);
+    }
+
+    public void add(Product product) {
+        products.add(product);
     }
 }
