@@ -25,11 +25,35 @@ public class ProductService {
             )
     );
 
+    private int getIndexFromProductId(int id) {
+        int index = -1;
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId() == id) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
     public Product getProductById(int id) {
         return products.stream().filter(product -> product.getId() == id).findFirst().orElse(null);
     }
 
     public void add(Product product) {
         products.add(product);
+    }
+
+    public void updateProduct(Product product) {
+        int index = getIndexFromProductId(product.getId());
+        if (index != -1) {
+            products.set(index, product);
+        }
+    }
+
+    public void deleteProduct(int id) {
+        int index = getIndexFromProductId(id);
+        if (index != -1) {
+            products.remove(index);
+        }
     }
 }
